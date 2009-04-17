@@ -57,4 +57,6 @@ sub makeiso {
     system("$isomaker $isomakeropts $isoname $datadir") // die "I can't burn Your cd! \n$!";
 }
 
+$isoname if ($isoname =~ m/.iso$/) or $isoname = "$isoname.iso";
+
 makeiso( $isoname, $datadir );
