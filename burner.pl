@@ -57,7 +57,15 @@ sub makeiso {
     system("$isomaker $isomakeropts $isoname $datadir") // die "I can't burn Your cd! \n$!";
 }
 
-$isoname if ($isoname =~ m/.iso$/) or $isoname = "$isoname.iso"; # check if file (.iso) extension is deined 
-                                                                 # in name, if not it'll add it
+sub burniso {
+    say $isoname;
+
+}
+
+if ($isoname) {
+$isoname = "$isoname.iso" if ($isoname !~ m/.iso$/); # check if file (.iso) extension is defined 
+                                                     # in name, if not it'll add it
+}
 
 makeiso( $isoname, $datadir );
+burniso();
