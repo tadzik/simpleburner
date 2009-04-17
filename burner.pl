@@ -47,8 +47,8 @@ sub help {
     say "Burner is a program that will make Your burning cd's easier under the CLI environment 
         \nWARNING: To burn Your CD You must put Your files into default /tmp/burner directory or run burner with --data=/your/burndata/directory option
         \nOPTIONS:
-        -h|--help   - print this message
-        -t|--test   - run in test burn mode
+        -h|--help  - print this message
+        -t|--test  - run in test burn mode
         --data=s   - set directory with data to burn (default /tmp/burner)
         --name=s   - set name of iso file (default cd.iso), You iso file will be stored in /tmp
         --burner=s - set burner to use (default /dev/cdrw)";
