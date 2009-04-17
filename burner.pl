@@ -52,11 +52,12 @@ sub makeiso {
         $isoname = '/tmp/cd.iso';
     };
 
-    say $datadir; say $isoname;
+    say $datadir; say $isoname; # print to test if function works good
 
     system("$isomaker $isomakeropts $isoname $datadir") // die "I can't burn Your cd! \n$!";
 }
 
-$isoname if ($isoname =~ m/.iso$/) or $isoname = "$isoname.iso";
+$isoname if ($isoname =~ m/.iso$/) or $isoname = "$isoname.iso"; # check if file (.iso) extension is deined 
+                                                                 # in name, if not it'll add it
 
 makeiso( $isoname, $datadir );
