@@ -48,7 +48,7 @@ GetOptions( "h|help" => \&help,       # print help
             "b|burn-only" => \$burn,  # run in burn-iso-only mode (name option must be defined)
             "m|makeiso" => \$makeiso ); #run in make-iso-only mode 
 sub help {
-    say "Burner is a program that will make Your burning cd's easier under the CLI environment 
+    say "Simpleburner is a program that will make Your burning cd's easier under the CLI environment 
         \nWARNING: To burn Your CD You must put Your files into default /tmp/burner directory or run burner with --data=/your/burndata/directory option
         \nWARNING: If You create iso image You will find it in /tmp directory
         \nOPTIONS:
