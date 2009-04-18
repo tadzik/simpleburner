@@ -4,13 +4,13 @@ Simpleburn is program running under the CLI environment to make Your burning CD/
 
 ### INSTALLATION:
 
-To get the source of simpleburn run:
+To get the source of simpleburner run:
 
-`$ git clone git://github.com/sirmacik/simpleburn.git`
+`$ git clone git://github.com/sirmacik/simpleburner.git`
 
 And then install with command:
 
-`# install -Dm simpleburn/simpleburn.pl /usr/bin/simpleburn`
+`# install -Dm simpleburner/simpleburner.pl /usr/bin/simpleburner`
 
 You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?ID=25670> from AUR
 
