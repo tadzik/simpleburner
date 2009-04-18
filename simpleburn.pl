@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# file: burner.pl - it'll make Your burning cd's easier under the CLI environment
+# file: simpleburn.pl - it'll make Your burning cd's easier under the CLI environment
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = GPLv3 
