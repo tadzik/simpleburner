@@ -12,7 +12,7 @@ And then install with command:
 
 `# install -Dm simpleburnerer/simpleburnerer.pl /usr/bin/simpleburnerer`
 
-You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?ID=25670> from AUR
+You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?ID=25672> from AUR
 
 ### WARNING:
 
