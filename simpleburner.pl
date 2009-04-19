@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = GPLv3 
-#   version = 0.1
+#   version = 0.1.1
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -44,26 +44,40 @@ GetOptions( "h|help" => \&help,       # print help
             "name=s" => \$isoname,    # set name of iso file
             "speed=s" => \$burnspeed, # set burn speed
             "test" => \$test,       # run test burn
-            "burner=s" => \$burner,   # define writer other than default /dev/cdrw
+            "burner=s" => \$burner,   # define writer other than default /dev/sr0
             "b|burn-only" => \$burn,  # run in burn-iso-only mode (name option must be defined)
-            "m|makeiso" => \$makeiso ); #run in make-iso-only mode 
+            "m|makeiso" => \$makeiso); #run in make-iso-only mode 
+            
 sub help {
     say "Simpleburner is a program that will make Your burning cd's easier under the CLI environment 
         \nWARNING: To burn Your CD You must put Your files into default /tmp/burner directory or run burner with --data=/your/burndata/directory option
-        \nWARNING: If You create iso image You will find it in /tmp directory
+        \nWARNING: If You create iso image, by default  You'll find it in /tmp directory but You could set Your own location
         \nOPTIONS:
         -h|--help       - print this message
         --test          - run in test burn mode
         -b|--burn-only  - run without making iso image ('--name=/full/path/to/image.iso' option must be defined)
         -m|--makeiso    - make only iso image (without burn), Your image will be stored in /tmp directory
         --data=s        - set directory with data to burn (default /tmp/burner)
-        --name=s        - set name of iso file (default cd.iso), You iso file will be stored in /tmp
-        --burner=s      - set burner to use (default /dev/cdrw)";
+        --name=s        - set name of iso file (default cd.iso). By defaul Your iso file will be stored in /tmp  
+        --burner=s      - set burner to use (default /dev/sr0)";
     exit 0;
 } 
 
+sub isoname {
+    # Define name and location for iso image
+    my ($name) = @_;
+    $name = 'cd.iso' unless ($name);
+    $name = "$name.iso" unless ($name =~ /.iso$/);
+
+    unless ($name =~ m/\/*\//){     
+        $isoname = "/tmp/$name";
+    } else {
+        $isoname = $name;
+    }
+}
+
 sub makeiso {
-    my ($name, $dir) = @_;
+    my ($dir) = @_;
     
     if ($dir) {
         $datadir = $dir;
@@ -71,16 +85,9 @@ sub makeiso {
         $datadir = '/tmp/burner';
     };
 
-    if ($name) {
-        $isoname = "/tmp/$name";
-    } else {
-        $isoname = '/tmp/cd.iso';
-    };
+#    say $datadir; # print to test if function works good
 
-#    say $datadir; 
-#    say $isoname; # print to test if function works good
-
-    system("$isomaker $isomakeropts $isoname $datadir") // die "I can't burn Your cd! \n$!";
+    system("$isomaker $isomakeropts $isoname $datadir") and die "I can't burn Your cd! \n$!";
 }
 
 sub burniso {
@@ -94,21 +101,20 @@ sub burniso {
         $opts = $burnisoopts;
     }
 #    say $opts; # Test print to check if function works fine
-    system( "$writer $opts $isoname" ) // die "I can't write this image! \n$!";
+    system( "$writer $opts $isoname" )  and die "I can't write this image! \n$!";
 }
 
-if ($isoname) {
-$isoname = "$isoname.iso" if ($isoname !~ m/.iso$/); # check if file (.iso) extension is defined 
-                                                     # in name, if not it'll add it
-}
+isoname($isoname);
+# say $isoname; # test print
 
 if ($burn) {
     burn();
 #    say $burn; # Test print to check if everything works good
 } elsif ($makeiso) {
-    makeiso( $isoname, $datadir );
+    makeiso( $datadir );
 #    say $makeiso; # Test print to check if everything works good
 } else {
-makeiso( $isoname, $datadir );
-burniso();
+    makeiso( $isoname );
+    burniso();
 }
+

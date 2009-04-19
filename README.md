@@ -2,6 +2,15 @@
 
 Simpleburn is program running under the CLI environment to make Your burning CD/DVD’s easier.
 
+### HOMEPAGE:
+
+http://wiki.github.com/sirmacik/simpleburner
+
+### DEPENDENCES:
+
+    * perl(>=5.10.0) - <http://www.perl.org>
+    * cdrkit - <http://www.cdrkit.org/>
+
 ### INSTALLATION:
 
 To get the source of simpleburnerer run:
@@ -21,13 +30,13 @@ with—data=/your/burndata/directory option
 
 ### WARNING:
 
-If You create iso image You will find it in /tmp directory
+If You create iso image, by default  You'll find it in /tmp directory but You could set Your own location
 
 ### OPTIONS:
     * h|help         - print help message
     * test           - run in test burn mode
     * b|burn-only    - run without making iso image (‘—name=/full/path/to/image.iso’iso option must be defined)
-    * m|makeiso      - make only iso image (without burn), Your image will be stored in /tmp directory
+    * m|makeiso      - make only iso image (without burn), By defaul Your iso file will be stored in /tmp
     * data=s         - set directory willth data to burn (default /tmp/burner)
     * name=s         - set name of iso file (defaultault cd.iso), You iso file will be stored in /tmp
     * burner=s       - set burner to use (default /dev/sr0)
