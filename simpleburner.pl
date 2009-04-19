@@ -66,7 +66,7 @@ sub help {
 sub isoname {
     # Define name and location for iso image
     my ($name) = @_;
-    $name = 'cd.iso' unless ($name);
+    $name ||= 'cd.iso';
     $name = "$name.iso" unless ($name =~ /.iso$/);
 
     unless ($name =~ m/\/*\//){     
@@ -105,7 +105,7 @@ sub burniso {
 }
 
 isoname($isoname);
-# say $isoname; # test print
+#say $isoname; # test print
 
 if ($burn) {
     burn();
