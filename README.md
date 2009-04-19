@@ -25,8 +25,7 @@ You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?I
 
 ### WARNING:
 
-To burn Your CD You must put Your files into default /tmp/burner directory or run burner
-with—data=/your/burndata/directory option
+To burn Your CD You must put Your files into default /tmp/burner directory or run burner with —data=/your/burndata/directory option
 
 ### WARNING:
 
@@ -36,7 +35,7 @@ If You create iso image, by default  You'll find it in /tmp directory but You co
     * h|help         - print help message
     * test           - run in test burn mode
     * b|burn-only    - run without making iso image (‘—name=/full/path/to/image.iso’iso option must be defined)
-    * m|makeiso      - make only iso image (without burn), By defaul Your iso file will be stored in /tmp
+    * m|makeiso      - make only iso image (without burn), by default Your iso file will be stored in /tmp
     * data=s         - set directory willth data to burn (default /tmp/burner)
-    * name=s         - set name of iso file (defaultault cd.iso), You iso file will be stored in /tmp
+    * name=s         - set name of iso file (defaultault cd.iso)
     * burner=s       - set burner to use (default /dev/sr0)

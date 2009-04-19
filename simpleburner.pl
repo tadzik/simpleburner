@@ -56,9 +56,9 @@ sub help {
         -h|--help       - print this message
         --test          - run in test burn mode
         -b|--burn-only  - run without making iso image ('--name=/full/path/to/image.iso' option must be defined)
-        -m|--makeiso    - make only iso image (without burn), Your image will be stored in /tmp directory
+        -m|--makeiso    - make only iso image (without burn), by default Your image will be stored in /tmp directory
         --data=s        - set directory with data to burn (default /tmp/burner)
-        --name=s        - set name of iso file (default cd.iso). By defaul Your iso file will be stored in /tmp  
+        --name=s        - set name of iso file (default cd.iso)
         --burner=s      - set burner to use (default /dev/sr0)";
     exit 0;
 } 
