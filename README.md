@@ -8,8 +8,8 @@ Simpleburn is program running under the CLI environment to make Your burning CD/
 
 ### DEPENDENCES:
 
-    * perl(>=5.10.0) - <http://www.perl.org>
-    * cdrkit - <http://www.cdrkit.org/>
+* perl(>=5.10.0) - <http://www.perl.org>
+* cdrkit - <http://www.cdrkit.org/>
 
 ### INSTALLATION:
 
