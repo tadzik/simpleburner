@@ -4,7 +4,7 @@ Simpleburn is program running under the CLI environment to make Your burning CD/
 
 ### HOMEPAGE:
 
-http://wiki.github.com/sirmacik/simpleburner
+<http://wiki.github.com/sirmacik/simpleburner>
 
 ### DEPENDENCES:
 
