@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Description" content="Simpleburn homepage" />
+    <meta name="Keywords" content="simpleburn, linux, perl, multimedia, burning, writing, CD, DVD" />
+    <title>simpleburner homepage</title>
+</head>
+<body>
+    <h2>simpleburner</h2><br />
+    <strong><u>DESCRIPTION</u>:</strong><br />
+    <p>Simpleburn is program running under the CLI environment to make Your burning CD/DVD's easier.</p><br />
+    <strong><u>HOMEPAGE</u>:</strong>
+    <a href="http://sirmacik.lin4all.org/simpleburner/">http://simacik.lin4all.org/simpleburner</a><br /><br />
+    <strong><u>DEPENDENCES</u>:</strong>
+    <p><ul>
+        <li>perl(>=5.10.0) - <a href="http://www.perl.org">http://www.perl.org</a></li>
+        <li>cdrkit - <a href="http://www.cdrkit.org/">http://www.cdrkit.org/</a></li>
+    </ul></p><br />
+    <strong><u>INSTALLATION</u>:</strong><br />
+    <p>To get the source of simpleburnerer run:<br />
+    <code>$ git clone git://repo.or.cz/simpleburnerer.git</code><br />
+    And then install with command:<br />
+    <code># install -Dm simpleburnerer/simpleburnerer.pl /usr/bin/simpleburnerer</code><br />
+    You could also install it with <a href="http://aur.archlinux.org/packages.php?ID=25672">PKGBUILD</a> from AUR</p><br />
+    <strong><u>WARNING</u>:</strong><br />
+    <p>To burn Your CD You must put Your files into default /tmp/burner directory or run burner with
+    —data=/your/burndata/directory option</p><br />
+    <strong><u>WARNING</u>:</strong><br />
+    <p>If You create iso image, by default  You'll find it in /tmp directory but You could set Your own location</p><br />
+    <strong><u>OPTIONS</u>:</strong><br />
+    <p><ul>
+        <li><i>help</i>         - print help message</li>
+        <li><i>test</i>           - run in test burn mode</li>
+        </li><i>b</i><strong>|</strong><i>burn-only</i>    - run without making iso image (‘—name=/full/path/to/image.iso’iso option must be
+        defined)</li>
+        <li><i>m</i><strong>|</strong><i>makeiso</i>      - make only iso image (without burn), by default Your iso file
+        will be stored in /tmp</li>
+        <li><i>data=s</i>         - set directory willth data to burn (default /tmp/burner)</li>
+        <li><i>name=s</i>         - set name of iso file (defaultault cd.iso)</li>
+        <li><i>burner=s</i>       - set burner to use (default /dev/sr0)</li>
+    </ul></p><br />
+    <strong><u>LINKS</u>:</strong><br />
+    <a href="http://freshmeat.net/projects/simpleburner">Project site at freshmeat</a>
+    <a href="http://repo.or.cz/w/simpleburner.git">GIT repository at repo.or.cz</a>
+</body>
+</html>
