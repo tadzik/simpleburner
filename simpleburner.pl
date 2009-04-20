@@ -17,6 +17,7 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 use encoding 'utf8';
 
 use strict;
@@ -112,7 +113,6 @@ if ($burn) {
 #    say $burn; # Test print to check if everything works good
 } elsif ($makeiso) {
     makeiso( $datadir );
-#    say $makeiso; # Test print to check if everything works good
 } else {
     makeiso( $isoname );
     burniso();
