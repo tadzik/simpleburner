@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = GPLv3 
-#   version = 0.1.1
+#   version = 0.1.2
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -109,7 +109,7 @@ isoname($isoname);
 #say $isoname; # test print
 
 if ($burn) {
-    burn();
+    burniso();
 #    say $burn; # Test print to check if everything works good
 } elsif ($makeiso) {
     makeiso( $datadir );
