@@ -2,7 +2,7 @@ DESCRIPTION:
 Simpleburn is program running under the CLI environment to make Your burning CD/DVD's easier.
 
 HOMEPAGE:
-<http://wiki.github.com/sirmacik/simpleburner>
+<http://sirmacik.lin4all.org/simpleburner/>
 
 DEPENDENCES:
 
@@ -11,7 +11,7 @@ DEPENDENCES:
 
 INSTALLATION:
 To get the source of simpleburnerer run:
-    $ git clone git://repo.or.cz/simpleburnerer.git
+    $ git clone git://github.com/sirmacik/simpleburner.git
 And then install with command:
     # install -Dm simpleburnerer/simpleburnerer.pl /usr/bin/simpleburnerer
 You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?ID=25672> from AUR
