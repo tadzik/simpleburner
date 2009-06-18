@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = GPLv3 
-#   version = 0.1.2
+#   version = 0.1.4
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@ use encoding 'utf8';
 use strict;
 use warnings;
 use Getopt::Long;
-use 5.010; 
 
 my $burner = '/dev/sr0';       # Here You have to setup Your CD writer (if other than primary drive)
 
@@ -50,7 +49,7 @@ GetOptions( "h|help" => \&help,       # print help
             "m|makeiso" => \$makeiso); #run in make-iso-only mode 
             
 sub help {
-    say "Simpleburner is a program that will make Your burning cd's easier under the CLI environment 
+    print "Simpleburner is a program that will make Your burning cd's easier under the CLI environment 
         \nWARNING: To burn Your CD You must put Your files into default /tmp/burner directory or run burner with --data=/your/burndata/directory option
         \nWARNING: If You create iso image, by default  You'll find it in /tmp directory but You could set Your own location
         \nOPTIONS:
@@ -60,7 +59,7 @@ sub help {
         -m|--makeiso    - make only iso image (without burn), by default Your image will be stored in /tmp directory
         --data=s        - set directory with data to burn (default /tmp/burner)
         --name=s        - set name of iso file (default cd.iso)
-        --burner=s      - set burner to use (default /dev/sr0)";
+        --burner=s      - set burner to use (default /dev/sr0)\n";
     exit 0;
 } 
 
@@ -86,7 +85,7 @@ sub makeiso {
         $datadir = '/tmp/burner';
     };
 
-#    say $datadir; # print to test if function works good
+#    print $datadir; # print to test if function works good
 
     system("$isomaker $isomakeropts $isoname $datadir") and die "I can't burn Your cd! \n$!";
 }
@@ -101,16 +100,16 @@ sub burniso {
     } else {
         $opts = $burnisoopts;
     }
-#    say $opts; # Test print to check if function works fine
+#    print $opts; # Test print to check if function works fine
     system( "$writer $opts $isoname" )  and die "I can't write this image! \n$!";
 }
 
 isoname($isoname);
-#say $isoname; # test print
+#print $isoname; # test print
 
 if ($burn) {
     burniso();
-#    say $burn; # Test print to check if everything works good
+#    print $burn; # Test print to check if everything works good
 } elsif ($makeiso) {
     makeiso( $datadir );
 } else {
