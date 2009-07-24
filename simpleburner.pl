@@ -60,7 +60,6 @@ sub help {
         --data=s        - set directory with data to burn (default /tmp/burner)
         --name=s        - set name of iso file (default cd.iso)
         --burner=s      - set burner to use (default /dev/sr0)\n";
-    exit 0;
 } 
 
 sub isoname {
@@ -85,8 +84,6 @@ sub makeiso {
         $datadir = '/tmp/burner';
     };
 
-#    print $datadir; # print to test if function works good
-
     system("$isomaker $isomakeropts $isoname $datadir") and die "I can't burn Your cd! \n$!";
 }
 
@@ -100,7 +97,6 @@ sub burniso {
     } else {
         $opts = $burnisoopts;
     }
-#    print $opts; # Test print to check if function works fine
     system( "$writer $opts $isoname" )  and die "I can't write this image! \n$!";
 }
 
@@ -109,7 +105,6 @@ isoname($isoname);
 
 if ($burn) {
     burniso();
-#    print $burn; # Test print to check if everything works good
 } elsif ($makeiso) {
     makeiso( $datadir );
 } else {
