@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = GPLv3 
-#   version = 0.1.4
+#   version = 0.1.5
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ my $isomakeropts = '-U -o';     # Options used to make iso image
 my $burnisoopts = "--eject -v --dev=$burner";     # Options used to burn iso image
 my $isoname = '';
 my $datadir = '';
+my $dirname = '';
 my $burnspeed = '';
 my $test = '';
 
@@ -77,14 +78,14 @@ sub isoname {
 
 sub makeiso {
     my ($dir) = @_;
-    
+    print "$dir \n";
+     
     if ($dir) {
-        $datadir = $dir;
+        $dirname = $dir;
     } else {
-        $datadir = '/tmp/burner';
+        $dirname = '/tmp/burner/';
     };
-
-    system("$isomaker $isomakeropts $isoname $datadir") and die "I can't burn Your cd! \n$!";
+    system("$isomaker $isomakeropts $isoname $dirname") and die "I can't burn Your cd! \n$!";
 }
 
 sub burniso {
@@ -101,14 +102,13 @@ sub burniso {
 }
 
 isoname($isoname);
-#print $isoname; # test print
 
 if ($burn) {
     burniso();
 } elsif ($makeiso) {
     makeiso( $datadir );
 } else {
-    makeiso( $isoname );
+    makeiso( $datadir );
     burniso();
 }
 
