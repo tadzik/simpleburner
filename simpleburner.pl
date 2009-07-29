@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = GPLv3 
-#   version = 0.1.5
+#   version = 0.1.6
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
