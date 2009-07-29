@@ -61,6 +61,8 @@ sub help {
         --data=s        - set directory with data to burn (default /tmp/burner)
         --name=s        - set name of iso file (default cd.iso)
         --burner=s      - set burner to use (default /dev/sr0)\n";
+    exit 0;
+
 } 
 
 sub isoname {
