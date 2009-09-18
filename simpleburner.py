@@ -79,9 +79,9 @@ if __name__=="__main__":
     parser.add_option("-t", "--test", action="store_true", dest="test", default= False ,
                       help="run in test burn mode")
     parser.add_option("-b", "--burn-only", action="store_true", dest="burn", default=False,
-                      help="run without making iso image ('--name' option must be defined)")
+                      help="run without making iso image")
     parser.add_option("-m", "--makeiso", action="store_true", dest="make", default=False,
-                      help="make only iso image (by default image will be stored in current directory)")
+                      help="make only iso image")
 
     (options, args) = parser.parse_args()
     datadir = options.datadir
