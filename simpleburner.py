@@ -39,6 +39,10 @@ def programcheck():
         else:
             print >>sys.stderr, "Not found: Please install cdrkit or cdrtools!"
             sys.exit(1)
+def optcheck():
+    if not datadir:
+        print >>sys.stderr, "Failed! You must deine --data option."
+        sys.exit(1)
 def makeiso():
     print "Making iso image..."
     command = "%s -U -o %s %s" % (isomaker, isoname, datadir)
@@ -47,7 +51,7 @@ def makeiso():
         print >>sys.stderr, "Failed!"
         sys.exit(1)
     else:
-        print "[OK]"
+        print "[OK]\nFile stored in %s" % isoname
 def burniso():
     print "Burning iso..."
     if speed:
@@ -70,8 +74,8 @@ if __name__=="__main__":
     parser = OptionParser(usage=usage)
     parser.add_option("--data", dest="datadir",
                       help="set directory with data to burn")
-    parser.add_option("--name", dest="isoname",
-                      help="set path and/or name of iso image")
+    parser.add_option("--name", dest="isoname", default="/tmp/cd.iso",
+                      help="set path and/or name of iso image (by default /tmp/cd.iso)")
     parser.add_option("--device", dest="device", default="/dev/sr0",
                       help="set device to use (default /dev/sr0)")
     parser.add_option("--speed", dest="speed",
@@ -92,9 +96,8 @@ if __name__=="__main__":
     burn = options.burn
     make = options.make
 
-    print burn, make
     programcheck()
-
+    optcheck()
     if burn == True:
         burniso()
     elif make == True:
