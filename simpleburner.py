@@ -1,22 +1,32 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
+# Copyright (c) 2009, Marcin Karpezo 
+# All rights reserved.
 #
-#   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
-#   license = GPLv3 
-#   version = 0.2
+# Redistribution and use in source and binary forms, with or without modification, 
+# are permitted provided that the following conditions are met:
 #
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
+#     * Redistributions of source code must retain the above copyright notice, 
+#       this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright notice, 
+#       this list of conditions and the following disclaimer in the documentation 
+#       and/or other materials provided with the distribution.
+#     * Neither the name of the simpleburner nor the names of its contributors may 
+#       be used to endorse or promote products derived from this software without 
+#       specific prior written permission.
 #
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+# OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE.
+
+
 
 import os
 import sys
@@ -43,9 +53,12 @@ def optcheck():
     if not datadir:
         print >>sys.stderr, "Failed! You must deine --data option."
         sys.exit(1)
+    elif not os.path.exists(datadir):
+        print >>sys.stderr, "Failed! Data directory does not exist!"
+        sys.exit(1)
 def makeiso():
     print "Making iso image..."
-    command = "%s -U -o %s %s" % (isomaker, isoname, datadir)
+    command = "%s -U -quiet -o %s %s" % (isomaker, isoname, datadir)
     makeiso = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).communicate()[0]
     if makeiso:
         print >>sys.stderr, "Failed!"
@@ -62,13 +75,14 @@ def burniso():
         runtest = ' --dummy'
     else:
         runtest = ''
-    command = "%s --eject -v --dev=%s %s %s %s" % (writer, device, burnspeed, runtest, isoname)
+    command = "%s --eject -vs -%s --dev=%s %s %s %s" % (writer, mode, device, burnspeed, runtest, isoname)
     burniso = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).communicate()[0]
     if burniso:
-        print >>sys.stderr, "Failed!"
+        print >>sys.stderr, "Failed or ended successfully with warnings"
         sys.exit(1)
     else:
         print "[OK]"
+
 if __name__=="__main__":
     usage = "usage: %prog [options]"
     parser = OptionParser(usage=usage)
@@ -80,6 +94,8 @@ if __name__=="__main__":
                       help="set device to use (default /dev/sr0)")
     parser.add_option("--speed", dest="speed",
                       help="set burn speed (by default it will be autodetected)")
+    parser.add_option("--mode", dest="mode", default="tao",
+                      help="set burn mode; available options are: TAO (default), DAO, SAO, RAW)")
     parser.add_option("-t", "--test", action="store_true", dest="test", default= False ,
                       help="run in test burn mode")
     parser.add_option("-b", "--burn-only", action="store_true", dest="burn", default=False,
@@ -92,6 +108,7 @@ if __name__=="__main__":
     isoname = options.isoname
     device = options.device
     speed = options.speed
+    mode = options.mode
     test = options.test
     burn = options.burn
     make = options.make
@@ -105,5 +122,4 @@ if __name__=="__main__":
     else:
         makeiso()
         burniso()
-    
-    
+        
