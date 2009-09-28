@@ -26,8 +26,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 # POSSIBILITY OF SUCH DAMAGE.
 
-
-
 import os
 import sys
 import subprocess
@@ -50,12 +48,13 @@ def programcheck():
             print >>sys.stderr, "Not found: Please install cdrkit or cdrtools!"
             sys.exit(1)
 def optcheck():
-    if not datadir:
-        print >>sys.stderr, "Failed! You must deine --data option."
-        sys.exit(1)
-    elif not os.path.exists(datadir):
-        print >>sys.stderr, "Failed! Data directory does not exist!"
-        sys.exit(1)
+    if not burn:
+        if not datadir:
+            print >>sys.stderr, "Failed! You must deine --data option."
+            sys.exit(1)
+        elif not os.path.exists(datadir):
+            print >>sys.stderr, "Failed! Data directory does not exist!"
+            sys.exit(1)
 def makeiso():
     print "Making iso image..."
     command = "%s -U -quiet -o %s %s" % (isomaker, isoname, datadir)
