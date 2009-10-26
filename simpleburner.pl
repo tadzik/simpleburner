@@ -36,21 +36,22 @@ use Getopt::Long;
 my $writer = "";
 my $isomaker = "";
 my $datadir = "";
-my $isoname = "";
-my $device = "";
-my $mode = "";
+my $isoname = "/tmp/cd.iso";
+my $device = "/dev/sr0";
+my $speed ="";
+my $mode = "tao";
 my $test = "";
 my $burn = "";
 my $make = "";
 
-GetOptions( "data" => \$datadir,
-            "name" => \$isoname,
-            "device" => \$device,
-            "speed" => \$speed,
-            "mode" => \$mode,
+GetOptions( "data=s" => \$datadir,
+            "name=s" => \$isoname,
+            "device=s" => \$device,
+            "speed=s" => \$speed,
+            "mode=s" => \$mode,
             "t|test" => \$test,
             "b|burn-only" => \$burn,
-            "m|makeiso" => \$make,)
+            "m|makeiso" => \$make,);
 
 sub programcheck {
     print("Looking for cdrkit...");
@@ -69,5 +70,57 @@ sub programcheck {
     }
 }
 
-&programcheck;
+sub optcheck {
+    unless ($burn) {
+        unless ($datadir) {
+            print("Failed! You must deine --data option.\n");
+            exit 1;
+        }
+    } elsif ( -d $datadir) {
+        print("Failed! Data directory does not exist\n");
+        exit 1;
+    }
+}
 
+sub makeiso {
+    print("Making iso image...\n");
+    my $command = "$isomaker -U -quiet -o $isoname $datadir";
+    system($command);
+    unless ($? == "0") {
+        die "Can't make iso file!";
+    }
+    print("[OK!]\nFile stored in $isoname\n");
+}
+
+sub burniso {
+    print("Burning iso...\n");
+    my $burnspeed = "";
+    my $runtest = "";
+    if ($speed) { 
+        $burnspeed = " --speed=$speed";
+    } elsif ($test) {
+        $runtest = "--dummy";
+    }
+    my $command = "$writer  --eject -vs -$mode --dev=$device $burnspeed $runtest $isoname";
+    system($command); 
+    unless ($? == "0") {
+        die "Can't burn disc!";
+    }
+    print("[OK!]");
+}
+
+&programcheck;
+&optcheck;
+if ($burn) {
+    &burniso;
+} elsif ($make) {
+    &makeiso;
+} else {
+    &makeiso;
+    &burniso;
+}
+
+#TODO:
+# * Add question for delete old cd.iso 2009-10-26 21:33+0100
+# * Add audiocd burning 2009-10-26 21:33+0100
+# * Add help message 2009-10-26 21:38+0100 
