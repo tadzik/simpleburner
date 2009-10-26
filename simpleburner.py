@@ -57,7 +57,7 @@ def optcheck():
             sys.exit(1)
 def makeiso():
     print "Making iso image..."
-    command = "%s -U -quiet -o %s %s" % (isomaker, isoname, datadir)
+    command = "%s -U -quiet -o %s "%s"" % (isomaker, isoname, datadir)
     makeiso = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).communicate()[0]
     if makeiso:
         print >>sys.stderr, "Failed!"
