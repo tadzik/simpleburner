@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = BSD 
-#   version =
+#   version = 20091027 
 #   All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, 
@@ -44,15 +44,33 @@ my $test = "";
 my $burn = "";
 my $make = "";
 
-GetOptions( "data=s" => \$datadir,
-            "name=s" => \$isoname,
-            "device=s" => \$device,
-            "speed=s" => \$speed,
-            "mode=s" => \$mode,
-            "t|test" => \$test,
-            "b|burn-only" => \$burn,
-            "m|makeiso" => \$make,);
+GetOptions("data=s" => \$datadir,
+           "name=s" => \$isoname,
+           "device=s" => \$device,
+           "speed=s" => \$speed,
+           "mode=s" => \$mode,
+           "t|test" => \$test,
+           "b|burn-only" => \$burn,
+           "m|makeiso" => \$make,
+           "h|help" => \&helpmsg,);
 
+sub helpmsg {
+    my $helpmsg = <<EOM;
+Simpleburner, made to simplyfi CD/DVD burning under CLI
+    Usage: simpleburner [options]    
+OPTIONS:
+    data        - directory with data to burn
+    name        - path and/or name of iso image (by default /tmp/cd.iso)
+    device      - device to use (default /dev/sr0)
+    speed       - burning speed (by default it will be autodetected)
+    mode        - burning mode, available options are: TAO (default), DAO, SAO, RAW
+    t|test      - run in test mode
+    b|burn-only - run without making iso image
+    m|makeiso   - make only iso image
+EOM
+    print($helpmsg);
+    exit 0;
+}
 sub programcheck {
     print("Looking for cdrkit...");
     if (-e '/usr/bin/wodim' and -e '/usr/bin/genisoimage') {
@@ -73,21 +91,44 @@ sub programcheck {
 sub optcheck {
     unless ($burn) {
         unless ($datadir) {
-            print("Failed! You must deine --data option.\n");
+            print("Failed! You must deine --data option.\nRun -h|--help for more information.\n");
             exit 1;
         }
-    } elsif ( -d $datadir) {
-        print("Failed! Data directory does not exist\n");
+    } 
+    unless ( -d $datadir) {
+        print("Failed! Data directory '$datadir' does not exist.\n");
         exit 1;
     }
 }
 
+sub oldisock {
+    print("Old iso file detected, delete it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
+    if ($reply eq "n") {
+        print("Burn it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
+        if ($reply eq "n") {
+            print("Stopped!\n");
+            exit 1;
+        } else {
+            &burniso;
+            exit 0;
+        }
+    } else {
+        print("Deleting old iso file...");
+        unlink($isoname);
+        print("[OK]\n");
+    }
+}
+
 sub makeiso {
+    if (-e $isoname) {
+        &oldisock;
+    }
     print("Making iso image...\n");
-    my $command = "$isomaker -U -quiet -o $isoname $datadir";
+    $datadir =~ s/\s+/\\ /g;
+    my $command = "$isomaker -UR -quiet -allow-multidot -allow-leading-dots -iso-level 3 -o $isoname $datadir";
     system($command);
     unless ($? == "0") {
-        die "Can't make iso file!";
+        die "Can't make iso file!\n";
     }
     print("[OK!]\nFile stored in $isoname\n");
 }
@@ -104,10 +145,20 @@ sub burniso {
     my $command = "$writer  --eject -vs -$mode --dev=$device $burnspeed $runtest $isoname";
     system($command); 
     unless ($? == "0") {
-        die "Can't burn disc!";
+        die "Can't burn disc!\n";
     }
-    print("[OK!]");
+    print("[OK!]\n");
 }
+
+if ($isoname =~ m/^~/) {
+    $isoname =~ s/^~/$ENV{'HOME'}/;
+}
+
+if ($datadir =~ m/^~/) {
+    $datadir =~ s/^~/$ENV{'HOME'}/;
+}
+
+
 
 &programcheck;
 &optcheck;
@@ -121,6 +172,4 @@ if ($burn) {
 }
 
 #TODO:
-# * Add question for delete old cd.iso 2009-10-26 21:33+0100
-# * Add audiocd burning 2009-10-26 21:33+0100
-# * Add help message 2009-10-26 21:38+0100 
+# ** Add audiocd burning 2009-10-26 21:33+0100
