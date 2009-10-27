@@ -6,14 +6,14 @@ HOMEPAGE:
 
 DEPENDENCES:
 
-    * python>=2.3 - <http://www.python.org>
+    * perl   - <http://www.perl.org>
     * cdrkit - <http://www.cdrkit.org/> or cdrtools - <http://cdrecord.berlios.de/>
 
 INSTALLATION:
 To get the source of simpleburnerer run:
-    $ git clone git://github.com/sirmacik/simpleburner.git
+    $ git clone git://repo.or.cz/simpleburner.git
 And then install with command:
-    # install -Dm simpleburnerer/simpleburner.py /usr/bin/simpleburner
+    # install -Dm simpleburnerer/simpleburner.pl /usr/bin/simpleburner
 You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?ID=25672> from AUR
 
 OPTIONS:
