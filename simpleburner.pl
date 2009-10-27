@@ -143,7 +143,7 @@ sub burniso {
         $runtest = "--dummy";
     }
     my $command = "$writer  --eject -vs -$mode --dev=$device $burnspeed $runtest $isoname";
-    system($command); 
+    system("$command > /dev/null"); 
     unless ($? == "0") {
         die "Can't burn disc!\n";
     }
