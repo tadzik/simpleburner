@@ -3,7 +3,7 @@
 #  
 #   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
 #   license = BSD 
-#   version = 20091027 
+#   version = 20091028 
 #   All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification, 
@@ -57,16 +57,19 @@ GetOptions("data=s" => \$datadir,
 sub helpmsg {
     my $helpmsg = <<EOM;
 Simpleburner, made to simplyfi CD/DVD burning under CLI
-    Usage: simpleburner [options]    
-OPTIONS:
-    data        - directory with data to burn
-    name        - path and/or name of iso image (by default /tmp/cd.iso)
-    device      - device to use (default /dev/sr0)
-    speed       - burning speed (by default it will be autodetected)
-    mode        - burning mode, available options are: TAO (default), DAO, SAO, RAW
-    t|test      - run in test mode
-    b|burn-only - run without making iso image
-    m|makeiso   - make only iso image
+Usage: simpleburner [options]    
+    
+    -h, --help      Displays this message
+        --data      Directory with data to burn
+        --name      Path and/or name of iso image (by default /tmp/cd.iso)
+        --device    Device to use (default /dev/sr0)
+        --speed     Burning speed (by default it will be autodetected)
+        --mode      Burning mode, available options are: TAO (default), DAO, SAO, RAW
+    -t, --test      Run in test mode
+    -b, --burn-only Run without making iso image
+    -m, --makeiso   Make only iso image
+
+Please send any bug reports to simpleburner-bugs\@googlegroups.com
 EOM
     print($helpmsg);
     exit 0;
