@@ -35,7 +35,7 @@ use Getopt::Long;
 
 my $writer = "";
 my $isomaker = "";
-my $datadir = "";
+my $datadir = "/tmp";
 my $isoname = "/tmp/cd.iso";
 my $device = "/dev/sr0";
 my $speed ="";
@@ -164,12 +164,13 @@ if ($datadir =~ m/^~/) {
 
 
 &programcheck;
-&optcheck;
 if ($burn) {
     &burniso;
 } elsif ($make) {
     &makeiso;
+    &optcheck;
 } else {
+    &optcheck;
     &makeiso;
     &burniso;
 }
