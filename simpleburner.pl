@@ -55,7 +55,7 @@ GetOptions("data=s" => \$datadir,
            "h|help" => \&helpmsg,);
 
 sub helpmsg {
-    my $helpmsg = <<EOM;
+    print <<EOM;
 Simpleburner, made to simplyfi CD/DVD burning under CLI
 Usage: simpleburner [options]    
     
@@ -71,7 +71,6 @@ Usage: simpleburner [options]
 
 Please send any bug reports to simpleburner-bugs\@googlegroups.com
 EOM
-    print($helpmsg);
     exit 0;
 }
 sub programcheck {
@@ -94,7 +93,7 @@ sub programcheck {
 sub optcheck {
     unless ($burn) {
         unless ($datadir) {
-            print("Failed! You must deine --data option.\nRun -h|--help for more information.\n");
+            print("Failed! You must define --data option.\nRun -h|--help for more information.\n");
             exit 1;
         }
     } 
