@@ -43,7 +43,17 @@ GetOptions("data=s" => \$datadir,
            "m|makeiso" => \$make,
            "h|help" => \&helpmsg,);
 
+sub warning {
+    print <<END;
+simpleburner Copyright (C) 2009 Marcin Karpezo 
+This program comes with ABSOLUTELY NO WARRANTY. 
+This is free software, and you are welcome to redistribute it under certain conditions.
+
+END
+}
+
 sub helpmsg {
+    &warning;
     print <<EOM;
 Simpleburner, made to simplyfi CD/DVD burning under CLI
 Usage: simpleburner [options]    
@@ -150,7 +160,7 @@ if ($datadir =~ m/^~/) {
 }
 
 
-
+&warning;
 &programcheck;
 if ($burn) {
     &burniso;
