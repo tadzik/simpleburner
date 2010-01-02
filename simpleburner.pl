@@ -103,24 +103,6 @@ sub optcheck {
     }
 }
 
-sub oldisock {
-    print("Old iso file detected, delete it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
-    if ($reply eq "n") {
-        print("Burn it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
-        if ($reply eq "n") {
-            print("Stopped!\n");
-            exit 1;
-        } else {
-            &burniso;
-            exit 0;
-        }
-    } else {
-        print("Deleting old iso file...");
-        unlink($isoname);
-        print("[OK]\n");
-    }
-}
-
 sub makeiso {
     if (-e $isoname) {
         &oldisock;
@@ -152,6 +134,26 @@ sub burniso {
     print("[OK!]\n");
 }
 
+sub oldisock {
+    print("Old iso file detected, delete it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
+    if ($reply eq "n") {
+        print("Burn it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
+        if ($reply eq "n") {
+            print("Stopped!\n");
+            exit 1;
+        } else {
+            &burniso;
+            exit 0;
+        }
+    } else {
+        print("Deleting old iso file...");
+        unlink($isoname);
+        print("[OK]\n");
+	&makeiso;
+	&burniso;
+    }
+}
+
 if ($isoname =~ m/^~/) {
     $isoname =~ s/^~/$ENV{'HOME'}/;
 }
@@ -170,8 +172,7 @@ if ($burn) {
     &optcheck;
 } else {
     &optcheck;
-    &makeiso;
-    &burniso;
+    &oldisock;
 }
 
 #TODO:
