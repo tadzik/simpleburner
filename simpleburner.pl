@@ -25,7 +25,7 @@ use Getopt::Long;
 my $writer = "";
 my $isomaker = "";
 my $datadir = "/tmp";
-my $isoname = "/tmp/cd.iso";
+my $isoname = "~/cd.iso";
 my $device = "/dev/sr0";
 my $speed ="";
 my $mode = "tao";
