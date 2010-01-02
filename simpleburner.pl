@@ -48,6 +48,7 @@ sub warning {
 simpleburner Copyright (C) 2009 Marcin Karpezo 
 This program comes with ABSOLUTELY NO WARRANTY. 
 This is free software, and you are welcome to redistribute it under certain conditions.
+For details see COPYING file.
 
 END
 }
@@ -68,7 +69,7 @@ Usage: simpleburner [options]
     -b, --burn-only Run without making iso image
     -m, --makeiso   Make only iso image
 
-Please send any bug reports to simpleburner-bugs\@googlegroups.com
+Please send any bug reports or feuture requests to simpleburner-bugs\@googlegroups.com
 EOM
     exit 0;
 }
