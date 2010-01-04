@@ -1,5 +1,11 @@
+COPYING:
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without any warranty.
+
 DESCRIPTION:
-Simpleburner - running under the CLI environment to make Your burning CD/DVD's easier.
+Simpleburner - made to simplyfi CD/DVD burning under CLI.
 
 HOMEPAGE:
 <http://sirmacik.net/simpleburner/>
@@ -13,18 +19,25 @@ INSTALLATION:
 To get the source of simpleburnerer run:
     $ git clone git://repo.or.cz/simpleburner.git
 And then install with command:
-    # install -Dm simpleburnerer/simpleburner.pl /usr/bin/simpleburner
-You could also install it with PKGBUILD <http://aur.archlinux.org/packages.php?ID=25672> from AUR
+    # install -Dm simpleburner/simpleburner.pl /usr/bin/simpleburner
 
 OPTIONS:
-    * h, help        - print help message
-    * t, test        - run in test burn mode
-    * b, burn-only   - run without making iso image (‘—name=/full/path/to/image.iso’iso option must be defined)
-    * m, makeiso     - make only iso image (without burn)
-    * data=s         - set directory willth data to burn 
-    * name=s         - set name and path of iso file (by defaultault /tmp/cd.iso)
-    * device=s       - set device to use (default /dev/sr0)
-    * speed=s        - set burning speed
+    -h, --help        Displays help message
+    -t, --test        Run in test mode 
+    -b, --burn-only   Run without making iso image
+    -m, --makeiso     Make only iso image
+        --data        Directory with data to burn
+        --name        Path and/or name of iso image (by default ~/cd.iso)
+    	--device      Device to use (default /dev/sr0)
+        --speed       Burning speed (by default it will be autodetected)
+	--mode 	      Burning mode, available options are: TAO (default), DAO, SAO, RAW
+
+BUGS:
+If You've found any bugs or You've any idea how to improve simpleburner, 
+please report it by sending mail to simpleburner-bugs@googlegroups.com.
 
 LINKS:
+Mailing list: <http://groups.google.com/group/simpleburner-bugs>
 Project site at freshmeat <http://freshmeat.net/projects/simpleburner>
+Project site at sourceforge <http://sourceforge.net/projects/simpleburner/>
+

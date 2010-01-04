@@ -61,7 +61,7 @@ Usage: simpleburner [options]
     
     -h, --help      Displays this message
         --data      Directory with data to burn
-        --name      Path and/or name of iso image (by default /tmp/cd.iso)
+        --name      Path and/or name of iso image (by default ~/cd.iso)
         --device    Device to use (default /dev/sr0)
         --speed     Burning speed (by default it will be autodetected)
         --mode      Burning mode, available options are: TAO (default), DAO, SAO, RAW
@@ -176,4 +176,6 @@ if ($burn) {
 }
 
 #TODO:
+# * Delete of iso image after burning, nie, 3 sty 2010, 19:04:50 CET
+# * CD-RW cleaning, nie, 3 sty 2010, 19:05:14 CET
 # ** Add audiocd burning 2009-10-26 21:33+0100
