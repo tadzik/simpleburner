@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # file: made to simplyfi CD/DVD burning under CLI
 #  
-#   Copyright 2009 Marcin Karpezo <sirmacik at gmail dot com>
+#   Copyright 2009, 2010 Marcin Karpezo <sirmacik at gmail dot com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -45,9 +45,12 @@ GetOptions("data=s" => \$datadir,
 
 sub warning {
     print <<END;
-simpleburner Copyright (C) 2009 Marcin Karpezo 
+simpleburner, made to simplyfi CD/DVD burning under CLI
+
+simpleburner Copyright (C) 2009, 2010 Marcin Karpezo 
 This program comes with ABSOLUTELY NO WARRANTY. 
-This is free software, and you are welcome to redistribute it under certain conditions.
+This is free software, and you are welcome 
+to redistribute it under certain conditions.
 For details see COPYING file.
 
 END
