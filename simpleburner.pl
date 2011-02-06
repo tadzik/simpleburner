@@ -77,21 +77,26 @@ EOM
     exit 0;
 }
 
+sub try {
+    print shift;
+    shift();
+    print shift || "[OK!]\n";
+}
+
 sub programcheck {
-    print("Looking for cdrkit...");
-    if (-e '/usr/bin/wodim' and -e '/usr/bin/genisoimage') {
-        $writer = 'wodim';
-        $isomaker = 'genisoimage';
-        print("[OK!]\n");
-    } elsif (-e '/usr/bin/cdrecord' and -e '/usr/bin/mkisofs') {
-        print("Not found\nLooking for cdrtools...");
-        $writer = 'cdrecord';
-        $isomaker = 'mkisofs';
-        print("[OK!]\n");
-    } else {
-        print("Not found: Please install cdrkit or cdrtools!\n");
-        exit 1;
-    }
+    try "Looking for cdrkit...", do {
+        if (-e '/usr/bin/wodim' and -e '/usr/bin/genisoimage') {
+            $writer = 'wodim';
+            $isomaker = 'genisoimage';
+        } elsif (-e '/usr/bin/cdrecord' and -e '/usr/bin/mkisofs') {
+            print("Not found\nLooking for cdrtools...");
+            $writer = 'cdrecord';
+            $isomaker = 'mkisofs';
+        } else {
+            print("Not found: Please install cdrkit or cdrtools!\n");
+            exit 1;
+        }
+    };
 }
 
 sub optcheck {
@@ -110,28 +115,29 @@ sub makeiso {
     if (-e $isoname) {
         oldisock();
     }
-    print("Making iso image...\n");
-    $datadir =~ s/\s+/\\ /g;
-    my $command = "$isomaker -UR -quiet -allow-multidot "
-                 ."-allow-leading-dots -iso-level 3 "
-                 ."-o $isoname $datadir";
-    system($command) or die "Can't make iso file!\n";
-    print("[OK!]\nFile stored in $isoname\n");
+    try "Making iso image", do {
+        $datadir =~ s/\s+/\\ /g;
+        my $command = "$isomaker -UR -quiet -allow-multidot "
+                      ."-allow-leading-dots -iso-level 3 "
+                      ."-o $isoname $datadir";
+        system($command) or die "Can't make iso file!\n";
+    };
+    print("File stored in $isoname\n");
 }
 
 sub burniso {
-    print("Burning iso...\n");
-    my $burnspeed = "";
-    my $runtest = "";
-    if ($speed) { 
-        $burnspeed = " --speed=$speed";
-    } elsif ($test) {
-        $runtest = "--dummy";
-    }
-    my $command = "$writer --eject -vs -$mode --dev=$device "
-                 ."$burnspeed $runtest $isoname";
-    system("$command > /dev/null") or die "Can't burn disc!\n";
-    print("[OK!]\n");
+    try "Burning iso...", do {
+        my $burnspeed = "";
+        my $runtest = "";
+        if ($speed) {
+            $burnspeed = " --speed=$speed";
+        } elsif ($test) {
+            $runtest = "--dummy";
+        }
+        my $command = "$writer --eject -vs -$mode --dev=$device "
+                     ."$burnspeed $runtest $isoname";
+        system("$command > /dev/null") or die "Can't burn disc!\n";
+    };
 }
 
 sub oldisock {
@@ -148,9 +154,7 @@ sub oldisock {
             exit 0;
         }
     } else {
-        print("Deleting old iso file...");
-        unlink($isoname);
-        print("[OK]\n");
+        try "Deleting old iso file...", { unlink $isoname };
         makeiso();
         burniso();
     }
