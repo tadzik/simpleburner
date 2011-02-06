@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# file: made to simplyfi CD/DVD burning under CLI
+# file: made to simplify CD/DVD burning under CLI
 #  
 #   Copyright 2009, 2010 Marcin Karpezo <sirmacik at gmail dot com>
 #
@@ -45,7 +45,7 @@ GetOptions("data=s" => \$datadir,
 
 sub warning {
     print <<END;
-simpleburner, made to simplyfi CD/DVD burning under CLI
+simpleburner, made to simplify CD/DVD burning under CLI
 
 simpleburner Copyright (C) 2009, 2010 Marcin Karpezo 
 This program comes with ABSOLUTELY NO WARRANTY. 
@@ -59,7 +59,7 @@ END
 sub helpmsg {
     &warning;
     print <<EOM;
-Simpleburner, made to simplyfi CD/DVD burning under CLI
+Simpleburner, made to simplify CD/DVD burning under CLI
 Usage: simpleburner [options]    
     
     -h, --help      Displays this message
