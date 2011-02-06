@@ -133,11 +133,9 @@ sub burniso {
 
 sub oldisock {
     print("Old iso file detected, delete it? [Y/n] ");
-    my $reply = <STDIN>; chomp $reply;
-    if ($reply eq "n") {
+    if (<STDIN> eq "n\n") {
         print("Burn it? [Y/n] ");
-        my $reply = <STDIN>; chomp $reply;
-        if ($reply eq "n") {
+        if (<STDIN> eq "n\n") {
             die("Stopped!\n");
         } else {
             burniso();
