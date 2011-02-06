@@ -76,6 +76,7 @@ Please send any bug reports or feuture requests to simpleburner-bugs\@googlegrou
 EOM
     exit 0;
 }
+
 sub programcheck {
     print("Looking for cdrkit...");
     if (-e '/usr/bin/wodim' and -e '/usr/bin/genisoimage') {
@@ -155,14 +156,8 @@ sub oldisock {
     }
 }
 
-if ($isoname =~ m/^~/) {
-    $isoname =~ s/^~/$ENV{'HOME'}/;
-}
-
-if ($datadir =~ m/^~/) {
-    $datadir =~ s/^~/$ENV{'HOME'}/;
-}
-
+$isoname =~ s/^~/$ENV{'HOME'}/;
+$datadir =~ s/^~/$ENV{'HOME'}/;
 
 warning();
 programcheck();
