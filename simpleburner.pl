@@ -57,7 +57,7 @@ END
 }
 
 sub helpmsg {
-    &warning;
+    warning();
     print <<EOM;
 Simpleburner, made to simplify CD/DVD burning under CLI
 Usage: simpleburner [options]    
@@ -94,13 +94,12 @@ sub programcheck {
 }
 
 sub optcheck {
-    unless ($burn) {
-        unless ($datadir) {
-            print("Failed! You must define --data option.\nRun -h|--help for more information.\n");
-            exit 1;
-        }
+    unless ($burn or $datadir) {
+        print("Failed! You must define --data option.\n"
+             ."Run -h|--help for more information.\n");
+        exit 1;
     } 
-    unless ( -d $datadir) {
+    unless (-d $datadir) {
         print("Failed! Data directory '$datadir' does not exist.\n");
         exit 1;
     }
@@ -108,15 +107,14 @@ sub optcheck {
 
 sub makeiso {
     if (-e $isoname) {
-        &oldisock;
+        oldisock();
     }
     print("Making iso image...\n");
     $datadir =~ s/\s+/\\ /g;
-    my $command = "$isomaker -UR -quiet -allow-multidot -allow-leading-dots -iso-level 3 -o $isoname $datadir";
-    system($command);
-    unless ($? == "0") {
-        die "Can't make iso file!\n";
-    }
+    my $command = "$isomaker -UR -quiet -allow-multidot "
+                 ."-allow-leading-dots -iso-level 3 "
+                 ."-o $isoname $datadir";
+    system($command) or die "Can't make iso file!\n";
     print("[OK!]\nFile stored in $isoname\n");
 }
 
@@ -129,31 +127,31 @@ sub burniso {
     } elsif ($test) {
         $runtest = "--dummy";
     }
-    my $command = "$writer  --eject -vs -$mode --dev=$device $burnspeed $runtest $isoname";
-    system("$command > /dev/null"); 
-    unless ($? == "0") {
-        die "Can't burn disc!\n";
-    }
+    my $command = "$writer --eject -vs -$mode --dev=$device "
+                 ."$burnspeed $runtest $isoname";
+    system("$command > /dev/null") or die "Can't burn disc!\n";
     print("[OK!]\n");
 }
 
 sub oldisock {
-    print("Old iso file detected, delete it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
+    print("Old iso file detected, delete it? [Y/n] ");
+    my $reply = <STDIN>; chomp $reply;
     if ($reply eq "n") {
-        print("Burn it? [Y/n] "); my $reply=<STDIN>; chomp $reply;
+        print("Burn it? [Y/n] ");
+        my $reply = <STDIN>; chomp $reply;
         if ($reply eq "n") {
             print("Stopped!\n");
             exit 1;
         } else {
-            &burniso;
+            burniso();
             exit 0;
         }
     } else {
         print("Deleting old iso file...");
         unlink($isoname);
         print("[OK]\n");
-	&makeiso;
-	&burniso;
+        makeiso();
+        burniso();
     }
 }
 
@@ -166,16 +164,16 @@ if ($datadir =~ m/^~/) {
 }
 
 
-&warning;
-&programcheck;
+warning();
+programcheck();
 if ($burn) {
-    &burniso;
+    burniso();
 } elsif ($make) {
-    &makeiso;
-    &optcheck;
+    makeiso();
+    optcheck();
 } else {
-    &optcheck;
-    &oldisock;
+    optcheck();
+    oldisock();
 }
 
 #TODO:
