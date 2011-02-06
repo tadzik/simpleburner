@@ -22,16 +22,11 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $writer = "";
-my $isomaker = "";
+my ($writer, $isomaker, $speed, $test, $burn, $make);
 my $datadir = "/tmp";
 my $isoname = "~/cd.iso";
 my $device = "/dev/sr0";
-my $speed ="";
 my $mode = "tao";
-my $test = "";
-my $burn = "";
-my $make = "";
 
 GetOptions("data=s" => \$datadir,
            "name=s" => \$isoname,
