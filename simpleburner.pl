@@ -93,21 +93,18 @@ sub programcheck {
             $writer = 'cdrecord';
             $isomaker = 'mkisofs';
         } else {
-            print("Not found: Please install cdrkit or cdrtools!\n");
-            exit 1;
+            die("Not found: Please install cdrkit or cdrtools!\n");
         }
     };
 }
 
 sub optcheck {
     unless ($burn or $datadir) {
-        print("Failed! You must define --data option.\n"
-             ."Run -h|--help for more information.\n");
-        exit 1;
+        die("Failed! You must define --data option.\n"
+            ."Run -h|--help for more information.\n");
     } 
     unless (-d $datadir) {
-        print("Failed! Data directory '$datadir' does not exist.\n");
-        exit 1;
+        die("Failed! Data directory '$datadir' does not exist.\n");
     }
 }
 
@@ -127,8 +124,7 @@ sub makeiso {
 
 sub burniso {
     try "Burning iso...", do {
-        my $burnspeed = "";
-        my $runtest = "";
+        my ($burnspeed, $runtest);
         if ($speed) {
             $burnspeed = " --speed=$speed";
         } elsif ($test) {
@@ -147,8 +143,7 @@ sub oldisock {
         print("Burn it? [Y/n] ");
         my $reply = <STDIN>; chomp $reply;
         if ($reply eq "n") {
-            print("Stopped!\n");
-            exit 1;
+            die("Stopped!\n");
         } else {
             burniso();
             exit 0;
